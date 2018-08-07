@@ -1,0 +1,40 @@
+{
+  "name": "react-challenge",
+  "version": "1.0.0",
+  "description": "try to implement this using React v16.x Context API without Redux",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alankyshum/react-challenge.git"
+  },
+  "keywords": [
+    "react",
+    "context-api"
+  ],
+  "author": "Alan Shum",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alankyshum/react-challenge/issues"
+  },
+  "homepage": "https://github.com/alankyshum/react-challenge#readme",
+  "devDependencies": {
+    "@types/react": "^16.4.8",
+    "@types/react-dom": "^16.0.7",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
+    "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  }
+}
