@@ -1,33 +1,49 @@
 import * as React from 'react';
 
-class Checkbox extends React.Component {
+class Checkbox extends React.Component<{ checklistItemID: number; removeItem: { (): void }, checked: boolean }> {
   render() {
     return <div>
-      <input type="checkbox"/>
-      <button>Remove</button>
+      <input type="checkbox" defaultChecked={ this.props.checked } />
+      <span>{ this.props.checklistItemID }</span>
+      <button onClick={ this.props.removeItem }>Remove</button>
     </div>;
   }
 }
 
-export default class App extends React.Component {
+interface AppProps {
+  checklistIDs: Set<number>;
+  updateChecklist: { (indexToRemove?: number): void; }
+  checkAll: { (): void; }
+  allChecked: boolean;
+}
+
+export default class App extends React.Component<AppProps> {
   render() {
     return <>
       <div>
-        <input type="checkbox"/>
-        <span>Check All</span>
+        <input id="check-all" type="checkbox" onChange={ this.checkAll.bind(this) } defaultChecked={ this.props.allChecked }/>
+        <label htmlFor="check-all">Check All</label>
       </div>
-      <button>Add</button>
-      { this.generateChecklist(10) }
+      <button onClick={ this.addItem.bind(this) }>Add</button>
+      { this.generateChecklist(this.props.checklistIDs, this.props.allChecked) }
     </>
   }
 
-  generateChecklist(itemsCount: number): React.ReactElement<Checkbox>[] {
-    const checklist: React.ReactElement<Checkbox>[] = [];
+  checkAll() {
+    this.props.checkAll();
+  }
 
-    for (let i = 0; i < itemsCount; i++) {
-      checklist.push(<Checkbox key={ i }/>)
-    }
+  addItem() {
+    this.props.updateChecklist();
+  }
 
-    return checklist;
+  removeItem(itemIndex: number) {
+    this.props.updateChecklist(itemIndex);
+  }
+
+  generateChecklist(items: Set<number>, allChecked: boolean): React.ReactElement<Checkbox>[] {
+    return Array.from(items).map(itemID =>
+      <Checkbox key={ itemID } checklistItemID={ itemID } removeItem={ () => this.removeItem(itemID) } checked={ allChecked }/>
+    );
   }
 }

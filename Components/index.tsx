@@ -1,5 +1,13 @@
+import Consumer from './State/Consumer';
 import * as React from 'react';
 import { render } from 'react-dom';
 import App from './App';
+import Provider from './State/Provider';
 
-render(<App />, document.getElementById('root'));
+render(
+  <Provider>
+    <Consumer>
+      <App />
+    </Consumer>
+  </Provider>
+, document.getElementById('root'));
