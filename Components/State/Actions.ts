@@ -7,7 +7,7 @@ export interface Action {
   payload: { [key: string]: any; }
 }
 
-export function updateChecklist(removedItemKey: number): Action {
+export function updateChecklist(removedItemKey?: number): Action {
   return {
     type: ReducerAction.UPDATE_CHECKLIST,
     payload: { removedItemKey }

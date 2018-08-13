@@ -1,14 +1,23 @@
 import * as React from 'react';
 import Store from '../State/Store';
-import Actions, { ReducerAction } from '../State/Actions';
+import Actions, { updateChecklist } from '../State/Actions';
 import { connect } from 'react-redux';
 
-class Checkbox extends React.Component {
+interface CheckboxProps {
+  itemID: number;
+}
+
+class Checkbox extends React.Component<CheckboxProps> {
   render() {
     return <div>
       <input type="checkbox" />
-      <button>Remove</button>
+      <button onClick={ this.removeItem.bind(this) }>Remove</button>
+      <span>{ this.props.itemID }</span>
     </div>;
+  }
+
+  removeItem() {
+    Store.dispatch(updateChecklist(this.props.itemID));
   }
 }
 
@@ -20,17 +29,21 @@ class App extends React.Component {
         <label htmlFor="check-all">Check All</label>
       </div>
       <button onClick={ this.addChecklistItem }>Add</button>
-      { this.generateChecklist(Store.getState().checklistIDs) }
+      {
+        Array.from(Store.getState().checklistIDs).map(itemID =>
+          <Checkbox key={ itemID } itemID={ itemID } />
+        )
+      }
     </>
   }
 
   addChecklistItem() {
-    Store.dispatch({ type: ReducerAction.UPDATE_CHECKLIST, payload: {} });
+    Store.dispatch(updateChecklist());
   }
 
   generateChecklist(items: Set<number>): React.ReactElement<Checkbox>[] {
     return Array.from(items).map(itemID =>
-      <Checkbox key={ itemID } />
+      <Checkbox key={ itemID } itemID={ itemID } />
     );
   }
 }
