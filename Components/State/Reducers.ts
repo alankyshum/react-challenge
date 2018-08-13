@@ -21,6 +21,13 @@ export default function checklist(state: ChecklistState = initialState, action: 
       }
     }
 
+    case ReducerAction.TOGGLE_CHECK_ALL: {
+      return {
+        ...state,
+        checkedAll: !state.checkedAll,
+      }
+    }
+
     default: return state;
   }
 }

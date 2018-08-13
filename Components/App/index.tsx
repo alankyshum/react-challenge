@@ -1,20 +1,29 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import Checkbox from '../Checkbox';
-import Actions, { updateChecklist } from '../State/Actions';
+import { Checkbox } from '../Checkbox';
+import Actions from '../State/Actions';
 import Store, { ChecklistState } from '../State/Store';
+import { Dispatch, Action } from 'redux';
 
-class App extends React.Component<ChecklistState> {
+interface DispatchProps {
+  updateChecklist: { (removedItemKey?: number): Action }
+}
+
+class App extends React.Component<ChecklistState & DispatchProps> {
   render() {
     return <>
       <div>
-        <input id="check-all" type="checkbox" />
+        <input id="check-all" type="checkbox" onChange={ this.toggleCheckAll } checked={ this.props.checkedAll }/>
         <label htmlFor="check-all">Check All</label>
       </div>
-      <button onClick={ this.addChecklistItem }>Add</button>
+      <button onClick={ this.addChecklistItem.bind(this) }>Add</button>
       { this.generateChecklist(this.props.checklistIDs) }
     </>
+  }
+
+  toggleCheckAll() {
+    Store.dispatch(Actions.toggleChecked());
   }
 
   generateChecklist(checklistIDs: number[]): React.ReactElement<Checkbox>[] {
@@ -25,8 +34,20 @@ class App extends React.Component<ChecklistState> {
   }
 
   addChecklistItem() {
-    Store.dispatch(updateChecklist());
+    this.props.updateChecklist();
   }
 }
 
-export default connect(store => store, Actions)(App);
+function mapStateToProps(store: ChecklistState) {
+  return {
+    checklistIDs: store.checklistIDs
+  };
+}
+
+function mapDispatchToProps(dispatch: Dispatch) {
+  return {
+    updateChecklist() { dispatch(Actions.updateChecklist()); }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
