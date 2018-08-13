@@ -2,13 +2,13 @@ import { createStore } from "redux";
 import reducer from './Reducers';
 
 export interface ChecklistState {
-  checklistIDs: Set<number>;
+  checklistIDs: number[];
   totalItemsCreated: number;
   checkedAll: boolean;
 }
 
 export const initialState: ChecklistState = {
-  checklistIDs: new Set(),
+  checklistIDs: [],
   totalItemsCreated: 0,
   checkedAll: false
 }

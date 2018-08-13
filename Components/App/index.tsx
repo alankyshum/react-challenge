@@ -1,27 +1,11 @@
 import * as React from 'react';
-import Store from '../State/Store';
-import Actions, { updateChecklist } from '../State/Actions';
 import { connect } from 'react-redux';
 
-interface CheckboxProps {
-  itemID: number;
-}
+import Checkbox from '../Checkbox';
+import Actions, { updateChecklist } from '../State/Actions';
+import Store, { ChecklistState } from '../State/Store';
 
-class Checkbox extends React.Component<CheckboxProps> {
-  render() {
-    return <div>
-      <input type="checkbox" />
-      <button onClick={ this.removeItem.bind(this) }>Remove</button>
-      <span>{ this.props.itemID }</span>
-    </div>;
-  }
-
-  removeItem() {
-    Store.dispatch(updateChecklist(this.props.itemID));
-  }
-}
-
-class App extends React.Component {
+class App extends React.Component<ChecklistState> {
   render() {
     return <>
       <div>
@@ -29,22 +13,19 @@ class App extends React.Component {
         <label htmlFor="check-all">Check All</label>
       </div>
       <button onClick={ this.addChecklistItem }>Add</button>
-      {
-        Array.from(Store.getState().checklistIDs).map(itemID =>
-          <Checkbox key={ itemID } itemID={ itemID } />
-        )
-      }
+      { this.generateChecklist(this.props.checklistIDs) }
     </>
+  }
+
+  generateChecklist(checklistIDs: number[]): React.ReactElement<Checkbox>[] {
+    // only support array, but not set type
+    return checklistIDs.map(itemID =>
+      <Checkbox key={ itemID } itemID={ itemID } />
+    );
   }
 
   addChecklistItem() {
     Store.dispatch(updateChecklist());
-  }
-
-  generateChecklist(items: Set<number>): React.ReactElement<Checkbox>[] {
-    return Array.from(items).map(itemID =>
-      <Checkbox key={ itemID } itemID={ itemID } />
-    );
   }
 }
 

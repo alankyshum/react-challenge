@@ -1,16 +1,12 @@
-import * as React from 'react';
-import { render } from 'react-dom';
-import App from './App';
-import { Provider } from 'react-redux';
-import Store from './State/Store';
+import * as React from "react";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import App from "./App";
+import Store, { initialState } from "./State/Store";
 
-function reactiveComponent() {
-  return render(
-    <Provider store={ Store }>
-      <App />
-    </Provider>
-  , document.getElementById('root'));
-}
-
-reactiveComponent();
-Store.subscribe(reactiveComponent);
+render(
+  <Provider store={Store}>
+    <App {...initialState} />
+  </Provider>,
+  document.getElementById("root")
+);
