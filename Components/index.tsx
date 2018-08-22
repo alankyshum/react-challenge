@@ -10,3 +10,12 @@ render(
   </Provider>,
   document.getElementById("root")
 );
+
+// reload whole page without module replacement
+// parcel has performance issue with HMR
+if (module.hot) {
+  module.hot.dispose(() => {
+    window.location.reload();
+    console.log('Windows reloaded on file save');
+  })
+}
