@@ -14,6 +14,8 @@ export default function checklist(state: StateInterface = initialState, action: 
         newChecklist.add(++totalItemsCreated);
       }
 
+      console.log(newChecklist);
+
       return {
         ...state,
         checklist: {
