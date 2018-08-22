@@ -9,6 +9,7 @@ export interface StateInterface {
 export const initialState: StateInterface = {
   checklist: {
     checklistIDs: [],
+    checkedIDs: [],
     totalItemsCreated: 0,
     checkedAll: false
   }

@@ -8,7 +8,10 @@ class App extends React.PureComponent<ChecklistState & ChecklistDispatch> {
   render() {
     return <>
       <div>
-        <input id="check-all" type="checkbox" checked={ this.props.checkedAll }/>
+        <input id="check-all" type="checkbox"
+          checked={ this.props.checkedAll }
+          onChange={ () => this.props.toggleChecklist() }
+          />
         <label htmlFor="check-all">Check All</label>
       </div>
       <button onClick={ () => this.props.updateChecklist() }>Add</button>

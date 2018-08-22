@@ -1,5 +1,6 @@
 import { Action, ReducerAction } from './Actions';
 import { StateInterface, initialState } from './Store';
+import { isAllChecked } from '../Components/Checklist/state';
 
 export default function checklist(state: StateInterface = initialState, action: Action): StateInterface {
   switch (action.type) {
@@ -14,8 +15,6 @@ export default function checklist(state: StateInterface = initialState, action: 
         newChecklist.add(++totalItemsCreated);
       }
 
-      console.log(newChecklist);
-
       return {
         ...state,
         checklist: {
@@ -23,6 +22,21 @@ export default function checklist(state: StateInterface = initialState, action: 
           totalItemsCreated,
           checklistIDs: Array.from(newChecklist)
         },
+      };
+    }
+
+    case ReducerAction.TOGGLE_CHECK_ALL: {
+      const allChecked = isAllChecked(
+        state.checklist.checkedIDs,
+        state.checklist.checklistIDs
+      );
+
+      return {
+        ...state,
+        checklist: {
+          ...state.checklist,
+          checkedIDs: allChecked ? [] : state.checklist.checklistIDs,
+        }
       };
     }
 
