@@ -40,6 +40,19 @@ export default function checklist(state: StateInterface = initialState, action: 
       };
     }
 
+    case ReducerAction.TOGGLE_ITEM: {
+      const { newChecklist } = action.payload;
+      if (!newChecklist) return state;
+
+      return {
+        ...state,
+        checklist: {
+          ...state.checklist,
+          checkedIDs: newChecklist,
+        }
+      };
+    }
+
     default: return state;
   }
 }

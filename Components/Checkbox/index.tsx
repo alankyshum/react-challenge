@@ -9,7 +9,7 @@ interface CheckboxProps {
 class Checkbox extends React.Component<CheckboxProps & ChecklistDispatch & CheckboxState> {
   render() {
     return <div>
-      <input type="checkbox" checked={ this.isChecked() }/>
+      <input type="checkbox" checked={ this.isChecked() } onChange={ () => this.toggleSelf() }/>
       <button onClick={ this.removeItem }>Remove</button>
     </div>;
   }
@@ -20,6 +20,20 @@ class Checkbox extends React.Component<CheckboxProps & ChecklistDispatch & Check
 
   isChecked = (): boolean => {
     return this.props.checkedList.includes(this.props.itemID);
+  }
+
+  toggleSelf = () => {
+    const selfChecked = this.props.checkedList.includes(this.props.itemID);
+    const checkedSet = new Set(this.props.checkedList);
+
+
+    if (selfChecked) {
+      checkedSet.delete(this.props.itemID);
+    } else {
+      checkedSet.add(this.props.itemID);
+    }
+
+    this.props.toggleItem(Array.from(checkedSet));
   }
 }
 
