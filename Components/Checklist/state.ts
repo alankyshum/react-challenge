@@ -22,7 +22,7 @@ export function mapStateToProps(state: StateInterface): ChecklistState {
   };
 }
 
-export function mapDispatchToProps(dispatch: Dispatch) {
+export function mapDispatchToProps(dispatch: Dispatch): ChecklistDispatch {
   return {
     updateChecklist(removedItemKey?: number): void {
       dispatch({

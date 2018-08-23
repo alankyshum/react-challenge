@@ -2,35 +2,34 @@ import { Dispatch } from 'redux';
 
 import { ReducerAction } from '../../State/Actions';
 import { StateInterface } from '../../State/Store';
-import { ChecklistState } from '../Checklist/state';
 
-export interface ChecklistDispatch {
+export interface CheckboxDispatch {
   updateChecklist(removedItemKey?: number): void;
-  toggleItem(newChecklist: ChecklistState['checkedIDs']): void;
+  toggleItem(itemID: number): void;
 }
 
 export interface CheckboxState {
   checkedList: number[];
 }
 
-export function mapStateToProps(state: StateInterface) {
+export function mapStateToProps(state: StateInterface): CheckboxState {
   return {
     checkedList: state.checklist.checkedIDs
   }
 }
 
-export function mapDispatchToProps(dispatch: Dispatch) {
+export function mapDispatchToProps(dispatch: Dispatch): CheckboxDispatch {
   return {
-    updateChecklist(removedItemKey?: number): void {
+    updateChecklist(removedItemKey?: number) {
       dispatch({
         type: ReducerAction.UPDATE_CHECKLIST,
         payload: { removedItemKey }
       });
     },
-    toggleItem(newChecklist: ChecklistState['checkedIDs']) {
+    toggleItem(itemID: number) {
       dispatch({
         type: ReducerAction.TOGGLE_ITEM,
-        payload: { newChecklist }
+        payload: { itemID }
       })
     }
   };
