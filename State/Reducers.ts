@@ -7,10 +7,12 @@ export default function checklist(state: StateInterface = initialState, action: 
     case ReducerAction.UPDATE_CHECKLIST: {
       const { removedItemKey } = action.payload;
       let newChecklist = new Set(state.checklist.checklistIDs);
+      let checkedIDs = new Set(state.checklist.checkedIDs);
       let totalItemsCreated = state.checklist.totalItemsCreated;
 
       if (removedItemKey) {
         newChecklist.delete(removedItemKey);
+        checkedIDs.delete(removedItemKey);
       } else {
         newChecklist.add(++totalItemsCreated);
       }
@@ -20,7 +22,8 @@ export default function checklist(state: StateInterface = initialState, action: 
         checklist: {
           ...state.checklist,
           totalItemsCreated,
-          checklistIDs: Array.from(newChecklist)
+          checklistIDs: Array.from(newChecklist),
+          checkedIDs: Array.from(checkedIDs)
         },
       };
     }
@@ -41,14 +44,18 @@ export default function checklist(state: StateInterface = initialState, action: 
     }
 
     case ReducerAction.TOGGLE_ITEM: {
-      const { newChecklist } = action.payload;
-      if (!newChecklist) return state;
+      const { itemID } = action.payload;
+      if (!itemID) return state;
+
+      const checkedIDs = new Set(state.checklist.checkedIDs);
+      const isItemChecked = checkedIDs.has(itemID);
+      checkedIDs[isItemChecked ? 'delete' : 'add'](itemID);
 
       return {
         ...state,
         checklist: {
           ...state.checklist,
-          checkedIDs: newChecklist,
+          checkedIDs: Array.from(checkedIDs),
         }
       };
     }
