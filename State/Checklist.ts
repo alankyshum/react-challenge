@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, computed } from 'mobx';
 
 export interface CheckboxState {
   itemID: number;
@@ -7,6 +7,7 @@ export interface CheckboxState {
 
 export interface ChecklistState {
   checkboxes: CheckboxState[]
+  allChecked: boolean;
   addItem(): void;
   removeItem(itemID: number): void;
   toggleItem(itemID: number): void;
@@ -15,6 +16,10 @@ export interface ChecklistState {
 class ChecklistStore {
   totalCreatedItem: number = 0;
   @observable checkboxes: CheckboxState[] = [];
+
+  @computed get allChecked(): boolean {
+    return this.checkboxes.every(checkbox => checkbox.checked);
+  }
 
   addItem() {
     this.totalCreatedItem++;

@@ -12,7 +12,7 @@ class Checklist extends React.Component<ChecklistProps> {
   render() {
     return <>
       <div>
-        <input id="check-all" type="checkbox" />
+        <input id="check-all" type="checkbox" checked={ this.props.store.allChecked }/>
         <label htmlFor="check-all">Check All</label>
       </div>
       <button onClick={ this.addItem }>Add</button>
