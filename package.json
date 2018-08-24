@@ -28,12 +28,13 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
+    "mobx-react-devtools": "^6.0.3",
     "typescript": "^3.0.1"
   },
   "dependencies": {
     "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
     "react-dom": "^16.4.2",
-    "react-redux": "^5.0.7",
-    "redux": "^2.0.0 || ^3.0.0 || ^4.0.0-0"
+    "mobx": "^5.0.4",
+    "mobx-react": "^5.2.5"
   }
 }
