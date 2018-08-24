@@ -23,10 +23,6 @@
   "devDependencies": {
     "@types/react": "^16.4.8",
     "@types/react-dom": "^16.0.7",
-    "@types/react-redux": "^6.0.6",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-react": "^6.24.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
@@ -35,8 +31,9 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "react": "^16.4.2",
+    "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
     "react-dom": "^16.4.2",
-    "react-redux": "^5.0.7"
+    "react-redux": "^5.0.7",
+    "redux": "^2.0.0 || ^3.0.0 || ^4.0.0-0"
   }
 }
