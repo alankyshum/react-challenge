@@ -2,6 +2,7 @@ import Checkbox from '../Checkbox';
 import { ChecklistState } from '../../State/Checklist';
 import { observer } from 'mobx-react';
 import * as React from 'react';
+import { computed } from 'mobx';
 
 interface ChecklistProps {
   store: ChecklistState;
@@ -26,7 +27,10 @@ class Checklist extends React.Component<ChecklistProps> {
 
   get checklist(): React.ReactNode[] {
     return this.props.store.checklistIDs.map(checklistID =>
-      <Checkbox key={ checklistID } itemID={ checklistID }></Checkbox>
+      <Checkbox key={ checklistID }
+        itemID={ checklistID }
+        removeItem={ () => this.props.store.removeItem(checklistID) }
+      ></Checkbox>
     );
   }
 }
